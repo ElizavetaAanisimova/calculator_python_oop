@@ -58,9 +58,9 @@ class CashCalculator(Calculator):
 
 
     currency_name_rate = {
-        'usd' : (USD_RATE, 'USD'),
-        'eur' : (EURO_RATE, 'Euro'),
-        'rub' : (RUB_RATE, 'руб')
+        'usd': (1 / USD_RATE, 'USD'),
+        'eur': (1 / EURO_RATE, 'Euro'),
+        'rub': (RUB_RATE, 'руб')
         }
 
     def get_today_cash_remained(self, currency):
@@ -69,7 +69,7 @@ class CashCalculator(Calculator):
         if diff == 0:
             return "Денег нет, держись"
         currency_rate, currency_name = self.currency_name_rate[currency]
-        exchange = f'{round(abs_diff / currency_rate, 2)} {currency_name}'
+        exchange = f'{round(abs_diff * currency_rate, 2)} {currency_name}'
     
         if diff > 0:
             return f"На сегодня осталось {exchange}"
