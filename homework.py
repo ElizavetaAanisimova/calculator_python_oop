@@ -2,6 +2,7 @@ import datetime as dt
 
 TODAY = dt.date.today()
 
+
 class Record:
     def __init__(self, amount, comment, date=None):
         self.amount = amount
@@ -42,6 +43,7 @@ class Calculator:
         diff = self.limit - today_stats
         return diff
 
+
 class CaloriesCalculator(Calculator):
     def get_calories_remained(self):
         diff = self.calc_remained_difference()
@@ -56,10 +58,9 @@ class CashCalculator(Calculator):
     USD_RATE = 60.0
     RUB_RATE = 1
 
-
     currency_name_rate = {
-        'usd': (1 / USD_RATE, 'USD'),
-        'eur': (1 / EURO_RATE, 'Euro'),
+        'usd': (USD_RATE, 'USD'),
+        'eur': (EURO_RATE, 'Euro'),
         'rub': (RUB_RATE, 'руб')
         }
 
@@ -69,8 +70,8 @@ class CashCalculator(Calculator):
         if diff == 0:
             return "Денег нет, держись"
         currency_rate, currency_name = self.currency_name_rate[currency]
-        exchange = f'{round(abs_diff * currency_rate, 2)} {currency_name}'
-    
+        exchange = f'{round(abs_diff / currency_rate, 2)} {currency_name}'
+
         if diff > 0:
             return f"На сегодня осталось {exchange}"
         return f"Денег нет, держись: твой долг - {exchange}"
